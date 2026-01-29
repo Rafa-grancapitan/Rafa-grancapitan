@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  web:
+    image: flask-rafa:1.0
+    container_name: flask-rafa
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./sqlite3-db:/sqlite3-db
+    environment:
+      - DB_PATH=/sqlite3-db/usuarios.db
+    restart: unless-stopped

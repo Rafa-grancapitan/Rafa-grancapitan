@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Listado de Perfiles</h2>
+<a class="btn btn-primary mb-3" href="{{ url_for('perfil_nuevo') }}">Nuevo Perfil</a>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Descripción</th>
+      <th>Nivel</th>
+      <th>Activo</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in perfiles %}
+    <tr>
+      <td>{{ p['nombre'] }}</td>
+      <td>{{ p['descripcion'] }}</td>
+      <td>{{ p['nivel'] }}</td>
+      <td>{{ 'Sí' if p['activo'] else 'No' }}</td>
+      <td>
+        <a class="btn btn-sm btn-info" href="{{ url_for('perfil_detalle', id=p['id']) }}">Ver</a>
+        <a class="btn btn-sm btn-warning" href="{{ url_for('perfil_editar', id=p['id']) }}">Editar</a>
+        <a class="btn btn-sm btn-danger" href="{{ url_for('perfil_borrar', id=p['id']) }}">Borrar</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Listado de Usuarios</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Apellidos</th>
+      <th>Email</th>
+      <th>Teléfono</th>
+      <th>Perfil</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for u in usuarios %}
+    <tr>
+      <td>{{ u['nombre'] }}</td>
+      <td>{{ u['apellidos'] }}</td>
+      <td>{{ u['email'] }}</td>
+      <td>{{ u['telefono'] }}</td>
+      <td>{{ u['perfil'] }}</td>
+      <td>
+        <a class="btn btn-sm btn-info" href="{{ url_for('usuario_detalle', id=u['id']) }}">Ver</a>
+        <a class="btn btn-sm btn-warning" href="{{ url_for('usuario_editar', id=u['id']) }}">Editar</a>
+        <a class="btn btn-sm btn-danger" href="{{ url_for('usuario_borrar', id=u['id']) }}">Borrar</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

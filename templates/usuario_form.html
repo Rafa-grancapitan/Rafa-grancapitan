@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ 'Editar Usuario' if usuario else 'Nuevo Usuario' }}</h2>
+<form method="POST">
+  <div class="mb-3">
+    <label class="form-label">Nombre</label>
+    <input type="text" name="nombre" class="form-control" value="{{ usuario['nombre'] if usuario else '' }}" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Apellidos</label>
+    <input type="text" name="apellidos" class="form-control" value="{{ usuario['apellidos'] if usuario else '' }}" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Email</label>
+    <input type="email" name="email" class="form-control" value="{{ usuario['email'] if usuario else '' }}" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Teléfono</label>
+    <input type="text" name="telefono" class="form-control" value="{{ usuario['telefono'] if usuario else '' }}">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Perfil</label>
+    <select name="perfil_id" class="form-select" required>
+      {% for p in perfiles %}
+      <option value="{{ p['id'] }}" {% if usuario and usuario['perfil_id']==p['id'] %}selected{% endif %}>{{ p['nombre'] }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <button type="submit" class="btn btn-success">Guardar</button>
+</form>
+{% endblock %}

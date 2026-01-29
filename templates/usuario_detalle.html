@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Detalle del Usuario</h2>
+
+{% if usuario %}
+<table class="table">
+  <tr><th>Nombre</th><td>{{ usuario['nombre'] }}</td></tr>
+  <tr><th>Apellidos</th><td>{{ usuario['apellidos'] }}</td></tr>
+  <tr><th>Email</th><td>{{ usuario['email'] }}</td></tr>
+  <tr><th>Teléfono</th><td>{{ usuario['telefono'] }}</td></tr>
+  <tr><th>Perfil</th><td>{{ usuario['perfil_nombre'] }}</td></tr>
+</table>
+
+<a class="btn btn-warning" href="{{ url_for('usuario_editar', id=usuario['id']) }}">Editar</a>
+<a class="btn btn-danger" href="{{ url_for('usuario_borrar', id=usuario['id']) }}">Borrar</a>
+
+{% if borrar %}
+<form method="POST">
+  <p>¿Seguro que deseas eliminar este usuario?</p>
+  <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+  <a href="{{ url_for('home') }}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endif %}
+
+{% else %}
+<p>No se encontró el usuario.</p>
+{% endif %}
+{% endblock %}

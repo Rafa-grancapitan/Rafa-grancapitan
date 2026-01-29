@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Detalle del Perfil</h2>
+
+{% if perfil %}
+<table class="table">
+  <tr><th>Nombre</th><td>{{ perfil['nombre'] }}</td></tr>
+  <tr><th>Descripción</th><td>{{ perfil['descripcion'] }}</td></tr>
+  <tr><th>Nivel</th><td>{{ perfil['nivel'] }}</td></tr>
+  <tr><th>Activo</th><td>{{ 'Sí' if perfil['activo'] else 'No' }}</td></tr>
+</table>
+
+<h3>Usuarios asociados</h3>
+{% if usuarios %}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Apellidos</th>
+      <th>Email</th>
+      <th>Teléfono</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for u in usuarios %}
+    <tr>
+      <td>{{ u['nombre'] }}</td>
+      <td>{{ u['apellidos'] }}</td>
+      <td>{{ u['email'] }}</td>
+      <td>{{ u['telefono'] }}</td>
+      <td>
+        <a class="btn btn-sm btn-info" href="{{ url_for('usuario_detalle', id=u['id']) }}">Ver</a>
+        <a class="btn btn-sm btn-warning" href="{{ url_for('usuario_editar', id=u['id']) }}">Editar</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>No hay usuarios asociados.</p>
+{% endif %}
+
+<a class="btn btn-warning" href="{{ url_for('perfil_editar', id=perfil['id']) }}">Editar</a>
+<a class="btn btn-danger" href="{{ url_for('perfil_borrar', id=perfil['id']) }}">Borrar</a>
+
+{% if borrar %}
+<form method="POST">
+  <p>¿Seguro que deseas eliminar este perfil?</p>
+  <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+  <a href="{{ url_for('perfiles_list') }}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endif %}
+
+{% else %}
+<p>No se encontró el perfil.</p>
+{% endif %}
+{% endblock %}
